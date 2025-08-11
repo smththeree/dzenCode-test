@@ -1,7 +1,7 @@
 import "./App.scss";
 
 function App() {
-  return <></>;
+  return <>123</>;
 }
 
 export default App;
