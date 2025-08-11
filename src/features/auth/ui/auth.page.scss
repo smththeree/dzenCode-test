@@ -1,0 +1,16 @@
+.auth_form {
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  min-width: 400px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+}
