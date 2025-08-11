@@ -4,9 +4,12 @@ import { createRoot } from "react-dom/client";
 import "./index.scss";
 import { RouterProvider } from "react-router";
 import { router } from "./router.tsx";
+import Providers from "./Providers.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Providers>
+      <RouterProvider router={router} />
+    </Providers>
   </StrictMode>
 );

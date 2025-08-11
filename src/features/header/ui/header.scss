@@ -1,0 +1,67 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100px;
+    padding: 20px 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    &__logo {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        &-img {
+            width: 50px;
+        }
+
+        &-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+    }
+
+    &__date {
+        display: flex;
+        flex-direction: column;
+        font-weight: bold;
+
+        &-month {
+            display: flex;
+            gap: 10px;
+        }
+
+        &-time {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+
+            .header__time-img {
+                width: 16px;
+                height: 16px;
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 10px 20px;
+
+
+        &__logo {
+            &-img {
+                width: 40px;
+            }
+
+            &-title {
+                font-size: 20px;
+            }
+        }
+
+        &__date {
+            font-size: 14px;
+        }
+    }
+}
