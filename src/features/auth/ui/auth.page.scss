@@ -1,16 +1,47 @@
-.auth_form {
-  padding: 30px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  min-width: 400px;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.auth__form {
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    min-width: 400px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-  &-error {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-  }
+    &-error {
+        color: red !important;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+}
+
+.auth__page {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .auth__form {
+        min-width: 350px;
+        padding: 20px;
+        min-height: 250px;
+    }
+
+}
+
+@media screen and (max-width: 390px) {
+    .auth__form {
+        min-width: 280px;
+        min-height: 200px;
+        padding: 15px;
+        margin: 0px 10px;
+
+        &-error {
+            font-size: 12px;
+        }
+    }
+
 }

@@ -6,7 +6,7 @@ const RequireUnauth = ({ children }: { children: React.ReactNode }) => {
   const isAuth = useIsAuth();
 
   if (isAuth) {
-    return <Navigate to={ROUTES.DASHBOARD} replace />;
+    return <Navigate to={ROUTES.ORDERS} replace />;
   }
 
   return children;

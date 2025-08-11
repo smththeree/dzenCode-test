@@ -1,51 +1,50 @@
-import { createBrowserRouter } from "react-router";
-import App from "./App";
+import { createBrowserRouter, Navigate, Outlet } from "react-router";
+
 import { ROUTES } from "@/shared/constants";
 import { AuthPage } from "@/features/auth";
-import Providers from "./Providers";
+
 import ProtectedRoute from "./ProtectedRoute";
 import RequireUnauth from "./requireUnAuth";
+import Header from "@/features/header/ui/header";
+import { Toaster } from "sonner";
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.HOME,
     element: (
-      <Providers>
-        <App />
-      </Providers>
+      <>
+        <Toaster position="bottom-right" />
+        <Outlet />
+      </>
     ),
     children: [
       {
-        element: <ProtectedRoute />,
+        path: ROUTES.HOME,
+        element: <Navigate to={ROUTES.ORDERS} replace />,
+      },
+      {
+        element: (
+          <div className="layout">
+            <Header />
+            <ProtectedRoute />
+          </div>
+        ),
         children: [
           {
-            path: ROUTES.DASHBOARD,
-            element: (
-              <div>
-                <h1>Welcome to the Dashboard</h1>
-              </div>
-            ),
-            children: [
-              {
-                path: ROUTES.ORDERS,
-                element: <>Orders Page</>,
-              },
-              {
-                path: ROUTES.PRODUCTS,
-                element: <>Products Page</>,
-              },
-            ],
+            path: ROUTES.ORDERS,
+            element: <>Orders</>,
+          },
+          {
+            path: ROUTES.PRODUCTS,
+            element: <>Products</>,
           },
         ],
       },
       {
         path: ROUTES.LOGIN,
         element: (
-          <>
-            <RequireUnauth>
-              <AuthPage />
-            </RequireUnauth>
-          </>
+          <RequireUnauth>
+            <AuthPage />
+          </RequireUnauth>
         ),
       },
     ],
