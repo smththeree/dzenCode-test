@@ -2,6 +2,8 @@ import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 const app = express();
 const server = http.createServer(app);
@@ -11,6 +13,46 @@ const io = new Server(server, {
 
 app.use(cors());
 app.use(express.json());
+
+
+const JWT_SECRET = 'supersecretkey';
+
+
+const users = [
+  {
+    id: 1,
+    username: 'admin',
+    passwordHash: bcrypt.hashSync('admin', 8)
+  }
+];
+
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+  if (!token) return res.status(401).json({ message: 'Token required' });
+
+  jwt.verify(token, JWT_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid token' });
+    req.user = user;
+    next();
+  });
+}
+
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  const user = users.find(u => u.username === username);
+
+  if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+  const validPass = bcrypt.compareSync(password, user.passwordHash);
+  if (!validPass) return res.status(400).json({ message: 'Invalid credentials' });
+
+  const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
+  res.json({ token });
+});
 
 
 const products = [
@@ -79,8 +121,7 @@ const orders = [
 ];
 
 
-app.get('/orders', (req, res) => {
-
+app.get('/orders', authenticateToken, (req, res) => {
   const result = orders.map(o => ({
     id: o.id,
     title: o.title,
@@ -91,10 +132,9 @@ app.get('/orders', (req, res) => {
   res.json(result);
 });
 
-app.get('/products', (req, res) => {
+app.get('/products', authenticateToken, (req, res) => {
   res.json(products);
 });
-
 
 let activeSessions = 0;
 
@@ -107,7 +147,6 @@ io.on('connection', (socket) => {
     io.emit('activeSessions', activeSessions);
   });
 });
-
 
 app.get('/datetime', (req, res) => {
   res.json({ datetime: new Date().toISOString() });

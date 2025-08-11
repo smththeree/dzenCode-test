@@ -1,12 +1,12 @@
 export const ROUTES = {
   HOME: "/",
-  ORDERS: "/orders",
-  PRODUCTS: "/products",
-  SIGNIN: "/signin",
-  SIGNUP: "/signup",
+  DASHBOARD: "/dashboard",
+  ORDERS: "/dashboard/orders",
+  PRODUCTS: "dashboard/products",
+  LOGIN: "/login",
 };
 
 export type RouteKeys = keyof typeof ROUTES;
 export const routeEntries = Object.entries(ROUTES).filter(
-  ([key]) => key !== "SIGNIN" && key !== "SIGNUP" && key !== "HOME"
+  ([key]) => key !== "LOGIN" && key !== "DASHBOARD"
 ) as [RouteKeys, string][];
