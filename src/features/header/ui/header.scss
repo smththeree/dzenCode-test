@@ -43,6 +43,16 @@
             }
         }
     }
+
+    &__asideBtn {
+        padding: 5px;
+
+        &-img {
+            width: 24px;
+            height: 24px;
+        }
+
+    }
 }
 
 @media screen and (max-width: 768px) {
