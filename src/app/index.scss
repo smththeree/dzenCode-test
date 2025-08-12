@@ -83,20 +83,16 @@ a {
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 
-    &:hover,
-    &:focus {
-        color: #004999;
-        outline: none;
-        text-decoration: underline;
-    }
+
 }
 
 
 ul,
 ol {
-    margin: 0 0 1em 1.5em;
+
     padding: 0;
     color: #444;
+    list-style: none;
     font-size: clamp(1rem, 1.2vw, 1.125rem);
 }
 
@@ -105,4 +101,21 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
+}
+
+.layout {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    &__content {
+        flex: 1;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    main {
+        flex: 1;
+        padding: 30px;
+    }
 }

@@ -2,11 +2,9 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router";
 
 import { ROUTES } from "@/shared/constants";
 import { AuthPage } from "@/features/auth";
-
-import ProtectedRoute from "./ProtectedRoute";
 import RequireUnauth from "./requireUnAuth";
-import Header from "@/features/header/ui/header";
 import { Toaster } from "sonner";
+import { Layout } from "@/features/layout";
 
 export const router = createBrowserRouter([
   {
@@ -22,12 +20,7 @@ export const router = createBrowserRouter([
         element: <Navigate to={ROUTES.ORDERS} replace />,
       },
       {
-        element: (
-          <div className="layout">
-            <Header />
-            <ProtectedRoute />
-          </div>
-        ),
+        element: <Layout />,
         children: [
           {
             path: ROUTES.ORDERS,

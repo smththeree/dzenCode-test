@@ -10,7 +10,11 @@ const ProtectedRoute = () => {
     return <Navigate to={ROUTES.LOGIN} />;
   }
 
-  return <Outlet />;
+  return (
+    <main>
+      <Outlet />
+    </main>
+  );
 };
 
 export default ProtectedRoute;
