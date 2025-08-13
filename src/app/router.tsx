@@ -6,6 +6,7 @@ import RequireUnauth from "./requireUnAuth";
 import { Toaster } from "sonner";
 import { Layout } from "@/features/layout";
 import { OrdersPage } from "@/features/orders";
+import { ProductsPage } from "@/features/products";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.PRODUCTS,
-            element: <>Products</>,
+            element: <ProductsPage />,
           },
         ],
       },

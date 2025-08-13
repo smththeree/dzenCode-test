@@ -10,7 +10,7 @@ type Props = {
   handleClose: () => void;
 };
 export const SideBar = ({ show, handleClose }: Props) => {
-  const { activeId, handleCLick } = useSideBarState(handleClose);
+  const { activeId, handleClick } = useSideBarState(handleClose);
   return (
     <Offcanvas show={show} onHide={handleClose} responsive="md">
       <Offcanvas.Header closeButton>
@@ -26,7 +26,7 @@ export const SideBar = ({ show, handleClose }: Props) => {
               {routeEntries.map(([key, path], index) => (
                 <li
                   key={key}
-                  onClick={() => handleCLick(index)}
+                  onClick={() => handleClick(index)}
                   className={cn("", { active: activeId == index })}
                 >
                   <Link to={path}>{key}</Link>

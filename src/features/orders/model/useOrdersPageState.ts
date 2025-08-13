@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetAllOrdersQuery } from "../api";
 import { setOrderData } from "./order.slice";
 import { useAppDispatch, useAppSelector } from "@/app/store";
@@ -13,6 +13,12 @@ export const useOrdersPageState = () => {
   const activeOrderDetails = useAppSelector((state) => state.order.orderData);
 
   const { data: orders, error, isFetching } = useGetAllOrdersQuery();
+
+  useEffect(() => {
+    return () => {
+      dispatch(setOrderData(null));
+    };
+  }, [dispatch]);
 
   const handleShowDetails = (order: Order) => {
     dispatch(setOrderData(order));
@@ -31,9 +37,7 @@ export const useOrdersPageState = () => {
     handleClose,
     handleShow,
     isFetching,
-
     handleShowDetails,
-
     showDetails,
   };
 };
