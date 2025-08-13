@@ -1,0 +1,199 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 10px;
+
+        &-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px 20px;
+
+            .orders__details-heading {
+                display: flex;
+                justify-content: space-between;
+
+                .orders__heading-title {
+                    font-weight: bold;
+                    font-size: 20px;
+                }
+
+                .orders__heading-description {
+                    font-size: 14px;
+                    margin: 0;
+                }
+            }
+        }
+
+        &-container {
+            display: flex;
+            gap: 10px;
+
+
+        }
+
+        &-details {
+            border-radius: 5px;
+            min-width: 700px;
+            height: 300px;
+            background-color: #e2e2e2;
+        }
+
+        &-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        &-item {
+            display: flex;
+            cursor: pointer;
+            justify-content: space-between;
+            background-color: #e2e2e2;
+            padding: 10px 20px;
+            border-radius: 5px;
+            align-items: center;
+            transition: all 0.3s ease;
+
+
+            &.active {
+                background-color: #ccc;
+            }
+
+            &:hover {
+
+                transform: scale(1.01);
+            }
+
+            .orders__item-info {
+                display: flex;
+                min-width: 160px;
+                flex-direction: column;
+
+                .orders__info-title {
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+
+                .orders__info-description {
+                    font-size: 14px;
+                }
+            }
+
+            .orders__item-products {
+                min-width: 70px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .orders__products-count {
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            }
+
+            .orders__item-date {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .orders__date-time {
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+
+                .orders__date-day {
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+            }
+
+            .orders__item-price {
+                min-width: 70px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .orders__price-value {
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+            }
+
+            .orders__remove-icon {
+                width: 20px;
+                cursor: pointer;
+
+                &:hover {
+
+                    transform: scale(1.2);
+                }
+            }
+
+        }
+    }
+}
+
+.order__form {
+    display: flex;
+    flex-direction: column;
+
+    button {
+        align-self: flex-end;
+    }
+
+}
+
+.modal__order {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ccc;
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    &-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .modal__info-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .modal__info-description {
+            font-size: 14px;
+        }
+
+    }
+
+    &-price {
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+        align-items: center;
+
+        .modal__price-value {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .modal__price-currency {
+            font-size: 14px;
+        }
+    }
+}

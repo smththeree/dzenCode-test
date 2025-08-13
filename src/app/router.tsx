@@ -5,6 +5,7 @@ import { AuthPage } from "@/features/auth";
 import RequireUnauth from "./requireUnAuth";
 import { Toaster } from "sonner";
 import { Layout } from "@/features/layout";
+import { OrdersPage } from "@/features/orders";
 
 export const router = createBrowserRouter([
   {
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.ORDERS,
-            element: <>Orders</>,
+            element: <OrdersPage />,
           },
           {
             path: ROUTES.PRODUCTS,
