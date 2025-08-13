@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { AuthSchema, type AuthSchemaType } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "../api";
+import { useLoginMutation } from "../api";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "@/app/store";
@@ -15,23 +15,20 @@ export const useAuthPageState = () => {
     mode: "onChange",
     resolver: zodResolver(AuthSchema),
   });
+  const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const onSubmit = (data: AuthSchemaType) => {
+  const onSubmit = async (data: AuthSchemaType) => {
     try {
-      login(data.username, data.password)
-        .then((response) => {
-          console.log("Login successful:", response.data);
-          dispatch(setToken(response.data.token));
-          toast.success("Login successful");
-          navigate("/dashboard");
-        })
-        .catch((error) => {
-          console.error("Login failed:", error);
-          toast.error("Login failed. Please check your credentials.");
-        });
-    } catch (error) {
-      console.error("An error occurred during login:", error);
+      const res = await login({
+        username: data.username,
+        password: data.password,
+      }).unwrap();
+      dispatch(setToken(res.token));
+      toast.success("Login successful");
+      navigate("/dashboard/orders");
+    } catch (err) {
+      console.error("Failed to login:", err);
     }
   };
   return {
