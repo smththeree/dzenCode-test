@@ -24,7 +24,7 @@ export const useAuthPageState = () => {
         username: data.username,
         password: data.password,
       }).unwrap();
-      dispatch(setToken(res.token));
+      dispatch(setToken(res.accessToken));
       toast.success("Login successful");
       navigate("/dashboard/orders");
     } catch (err) {

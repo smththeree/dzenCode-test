@@ -4,18 +4,25 @@ import { Server } from 'socket.io';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-
+import cookieParser from 'cookie-parser';
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
-  cors: { origin: '*' }
+  cors: {
+    origin: 'http://localhost:5173',
+    credentials: true
+  }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+   credentials: true
+}));
 app.use(express.json());
-
+app.use(cookieParser());
 
 const JWT_SECRET = 'supersecretkey';
+const REFRESH_SECRET = 'superrefreshkey';
 
 
 const users = [
@@ -41,7 +48,7 @@ function authenticateToken(req, res, next) {
   });
 }
 
-
+let refreshTokens = [];
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const user = users.find(u => u.username === username);
@@ -51,9 +58,57 @@ app.post('/login', (req, res) => {
   const validPass = bcrypt.compareSync(password, user.passwordHash);
   if (!validPass) return res.status(400).json({ message: 'Invalid credentials' });
 
-  const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token });
+  const accessToken = jwt.sign(
+    { id: user.id, username: user.username },
+    JWT_SECRET,
+    { expiresIn: '15m' }
+  );
+
+  const refreshToken = jwt.sign(
+    { id: user.id, username: user.username },
+    REFRESH_SECRET,
+    { expiresIn: '7d' }
+  );
+
+  refreshTokens.push(refreshToken);
+
+    res.cookie('refreshToken', refreshToken, {
+    httpOnly: true,   
+    secure: false,       
+    sameSite: 'lax',    
+    path: '/',          
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  }).json({ accessToken });
+
+ 
 });
+
+
+app.post('/refresh', (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+  if (!refreshToken) return res.status(401).json({ message: 'Refresh token required' });
+  if (!refreshTokens.includes(refreshToken)) return res.status(403).json({ message: 'Invalid refresh token' });
+
+  jwt.verify(refreshToken, REFRESH_SECRET, (err, user) => {
+    if (err) return res.status(403).json({ message: 'Invalid refresh token' });
+
+    const newAccessToken = jwt.sign(
+      { id: user.id, username: user.username },
+      JWT_SECRET,
+      { expiresIn: '1m' }
+    );
+
+    res.json({ accessToken: newAccessToken });
+  });
+});
+
+
+app.post('/logout', (req, res) => {
+  const { refreshToken } = req.body;
+  refreshTokens = refreshTokens.filter(t => t !== refreshToken);
+  res.json({ message: 'Logged out' });
+});
+
 
 
 const products = [

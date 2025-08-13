@@ -1,4 +1,3 @@
-import { authApi } from "@/features/auth";
 import { authSlice } from "@/features/auth/model/auth.slice";
 import { orderSlice } from "@/features/orders";
 
@@ -33,7 +32,6 @@ const persistedOrderReducer = persistReducer(
 
 export const store = configureStore({
   reducer: {
-    [authApi.reducerPath]: authApi.reducer,
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
     order: persistedOrderReducer,
@@ -43,7 +41,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, baseApi.middleware),
+    }).concat(baseApi.middleware),
 });
 
 export const persistor = persistStore(store);

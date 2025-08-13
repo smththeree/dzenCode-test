@@ -4,7 +4,7 @@ type Props = {
   heading: string;
   children: React.ReactNode;
   show: boolean;
-  handleClose: (e: React.MouseEvent<HTMLDivElement>) => void;
+  handleClose: () => void;
   closeButton?: React.ReactNode;
   saveButton?: React.ReactNode;
 };
