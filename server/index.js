@@ -61,7 +61,7 @@ const products = [
     id: 1,
     serialNumber: 1234,
     isNew: 1,
-    photo: 'pathToFile1.jpg',
+    photo: 'https://dlcdnwebimgs.asus.com/gain/966e2515-60e2-4f5b-86e7-e7b13d9867a0/',
     title: 'Product 1',
     type: 'Monitors',
     specification: 'Specification 1',
@@ -80,7 +80,7 @@ const products = [
     id: 2,
     serialNumber: 5678,
     isNew: 0,
-    photo: 'pathToFile2.jpg',
+    photo: 'https://dlcdnwebimgs.asus.com/gain/966e2515-60e2-4f5b-86e7-e7b13d9867a0/',
     title: 'Product 2',
     type: 'Laptops',
     specification: 'Specification 2',
@@ -99,7 +99,7 @@ const products = [
     id: 3,
     serialNumber: 9012,
     isNew: 1,
-    photo: 'pathToFile3.jpg',
+    photo: 'https://dlcdnwebimgs.asus.com/gain/966e2515-60e2-4f5b-86e7-e7b13d9867a0/',
     title: 'Product 3',
     type: 'Monitors',
     specification: 'Specification 3',
@@ -118,7 +118,7 @@ const products = [
     id: 4,
     serialNumber: 3456,
     isNew: 0,
-    photo: 'pathToFile4.jpg',
+    photo: 'https://dlcdnwebimgs.asus.com/gain/966e2515-60e2-4f5b-86e7-e7b13d9867a0/',
     title: 'Product 4',
     type: 'Laptops',
     specification: 'Specification 4',
@@ -211,6 +211,72 @@ app.post('/orders', authenticateToken, (req, res) => {
       description: newOrder.description,
       products: newOrder.products,
     },
+  });
+});
+app.get('/orders/:id/products', authenticateToken, (req, res) => {
+  const orderId = parseInt(req.params.id, 10);
+
+  const order = orders.find(o => o.id === orderId);
+  if (!order) {
+    return res.status(404).json({ message: 'Order not found' });
+  }
+
+  res.json(order.products);
+});
+app.post('/products', authenticateToken, (req, res) => {
+  const {
+    title,
+    type,
+    specification,
+    isNew,
+    serialNumber,
+    photo,
+    price,
+    order, // берем прямо order
+    guarantee
+  } = req.body;
+
+  // Проверка, что переданы обязательные поля
+  if (!title || order === undefined || order === null) {
+    return res.status(400).json({ message: 'Title and order are required' });
+  }
+
+  const orderObj = orders.find(o => o.id === order);
+  if (!orderObj) {
+    return res.status(404).json({ message: 'Order not found' });
+  }
+
+  const toSqlDateTime = (date) => {
+    if (!date) return null;
+    const d = new Date(date);
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  };
+
+  const newProductId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+
+  const newProduct = {
+    id: newProductId,
+    title,
+    type: type || '',
+    specification: specification || '',
+    isNew: isNew ?? 0,
+    serialNumber: serialNumber || null,
+    photo: photo || "https://dlcdnwebimgs.asus.com/gain/966e2515-60e2-4f5b-86e7-e7b13d9867a0/",
+    price: Array.isArray(price) ? price : [],
+    guarantee: {
+      start: toSqlDateTime(guarantee?.start),
+      end: toSqlDateTime(guarantee?.end)
+    },
+    order,
+    date: toSqlDateTime(new Date()),
+  };
+
+  products.push(newProduct);
+
+  res.status(201).json({
+    message: 'Product added successfully',
+    product: newProduct,
   });
 });
 app.get('/orders', authenticateToken, (req, res) => {

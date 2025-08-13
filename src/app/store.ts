@@ -1,8 +1,8 @@
-import { authApi } from "@/features/auth/api";
+import { authApi } from "@/features/auth";
 import { authSlice } from "@/features/auth/model/auth.slice";
 import { orderSlice } from "@/features/orders";
-import { ordersApi } from "@/features/orders/api";
 
+import { baseApi } from "@/shared/api";
 import { configureStore } from "@reduxjs/toolkit";
 import {
   useDispatch,
@@ -33,8 +33,8 @@ const persistedOrderReducer = persistReducer(
 
 export const store = configureStore({
   reducer: {
-    [ordersApi.reducerPath]: ordersApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer,
     order: persistedOrderReducer,
   },
@@ -43,7 +43,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(ordersApi.middleware, authApi.middleware),
+    }).concat(authApi.middleware, baseApi.middleware),
 });
 
 export const persistor = persistStore(store);

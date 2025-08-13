@@ -1,8 +1,18 @@
-import { useAppSelector } from "@/app/store";
 import { Button } from "react-bootstrap";
+import { useOrderItemDetails } from "../model/useOrderItemDetails";
+import OrderItemDetailsList from "./orderItemDetailsList";
+import Modal from "@/shared/ui/Modal";
+import OrderDetailsForm from "./orderDetailsForm";
 
 const OrderItemDetails = () => {
-  const activeOrderDetails = useAppSelector((state) => state.order.orderData);
+  const {
+    products,
+    activeOrderDetails,
+    isFetching,
+    show,
+    handleClose,
+    handleShow,
+  } = useOrderItemDetails();
 
   if (!activeOrderDetails) return null;
   return (
@@ -17,15 +27,15 @@ const OrderItemDetails = () => {
           </p>
         </div>
         <div className="orders__heading-actions">
-          <Button variant="success">Add product</Button>
+          <Button variant="success" onClick={handleShow}>
+            Add product
+          </Button>
         </div>
       </div>
-
-      <ul className="orders__details-list">
-        {activeOrderDetails.products.map((product) => (
-          <li key={product.id}>{product.title}</li>
-        ))}
-      </ul>
+      <OrderItemDetailsList products={products} isFetching={isFetching} />
+      <Modal heading="Add new product" show={show} handleClose={handleClose}>
+        <OrderDetailsForm handleClose={handleClose} />
+      </Modal>
     </div>
   );
 };

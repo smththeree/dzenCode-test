@@ -1,20 +1,8 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { Order } from "@/shared/types";
-import type { RootState } from "@/app/store";
+import type { Order, Product } from "@/shared/types";
 
-export const ordersApi = createApi({
-  reducerPath: "ordersApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4444",
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).auth.token;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
-  tagTypes: ["Orders"],
+import { baseApi } from "@/shared/api";
+
+export const ordersApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllOrders: build.query<Order[], void>({
       query: () => "/orders",
@@ -25,7 +13,7 @@ export const ordersApi = createApi({
         url: `/orders/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Orders"],
+      invalidatesTags: ["Orders", "Products"],
     }),
     createOrder: build.mutation<void, Pick<Order, "title" | "description">>({
       query: (order) => ({
@@ -35,6 +23,10 @@ export const ordersApi = createApi({
       }),
       invalidatesTags: ["Orders"],
     }),
+    getProductsByOrderId: build.query<Product[], number>({
+      query: (id) => `/orders/${id}/products`,
+      providesTags: ["Products", "Orders"],
+    }),
   }),
 });
 
@@ -42,4 +34,5 @@ export const {
   useGetAllOrdersQuery,
   useRemoveOrderMutation,
   useCreateOrderMutation,
+  useGetProductsByOrderIdQuery,
 } = ordersApi;

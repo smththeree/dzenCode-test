@@ -1,10 +1,9 @@
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useOrdersPageState } from "../model/useOrdersPageState";
-import OrderItem from "./orderItem";
 import "./ordersPage.scss";
 import Modal from "@/shared/ui/Modal";
-import OrderItemDetails from "./orderItemDetails";
 import OrderForm from "./orderForm";
+import OrderList from "./orderList";
 export const OrdersPage = () => {
   const {
     orders,
@@ -24,24 +23,12 @@ export const OrdersPage = () => {
           Add order
         </Button>
       </div>
-      <div className="orders__list-container">
-        <ul className="orders__list">
-          {isFetching ? (
-            <div className="orders__list-spinner">
-              <Spinner />
-            </div>
-          ) : (
-            orders?.map((order) => (
-              <OrderItem
-                key={order.id}
-                order={order}
-                handleClick={handleShowDetails}
-              />
-            ))
-          )}
-        </ul>
-        {showDetails && <OrderItemDetails />}
-      </div>
+      <OrderList
+        orders={orders}
+        isFetching={isFetching}
+        showDetails={showDetails}
+        handleShowDetails={handleShowDetails}
+      />
       <Modal heading="Add order" show={show} handleClose={handleClose}>
         <OrderForm handleClose={handleClose} />
       </Modal>
