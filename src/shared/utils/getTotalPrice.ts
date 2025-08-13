@@ -1,9 +1,6 @@
 import type { Order, Product } from "../types";
 
-const convertPrice = (priceValue: number, symbol: string) => {
-  const USD_RATE = 42;
-  return symbol === "USD" ? priceValue * USD_RATE : priceValue;
-};
+const priceSymbol = "UAH";
 
 const isOrder = (item: Product | Order): item is Order => {
   return "products" in item;
@@ -15,7 +12,7 @@ export const getTotalPrice = (items: Product | Order) => {
     : items.price;
 
   const total = prices.reduce((sum, price) => {
-    return sum + convertPrice(price.value, price.symbol);
+    return price.symbol === priceSymbol ? sum + price.value : sum;
   }, 0);
 
   return total.toFixed(2);
