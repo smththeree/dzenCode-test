@@ -15,7 +15,7 @@ const OrderForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter title")}
           {...register("title")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.title?.message}
         </Form.Text>
       </Form.Group>
@@ -27,7 +27,7 @@ const OrderForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter description")}
           {...register("description")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.description?.message}
         </Form.Text>
       </Form.Group>

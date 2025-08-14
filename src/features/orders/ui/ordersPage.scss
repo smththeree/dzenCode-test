@@ -190,6 +190,12 @@
         align-self: flex-end;
     }
 
+    &-error {
+        color: red;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
 }
 
 .modal__order {

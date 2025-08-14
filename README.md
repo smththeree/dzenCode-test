@@ -1,69 +1,102 @@
-# React + TypeScript + Vite
+# Тестовое приложение для dzenCode
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Описание
 
-Currently, two official plugins are available:
+Данное тестовое приложение состоит из **клиентской** и **серверной** части.  
+Реализована авторизация и работа с данными заказов и товаров с использованием JWT-аутентификации.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🖥️ Клиентская часть
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Стек технологий:**
 
-```js
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+- React
+- Redux Toolkit
+- TypeScript
+- Bootstrap
+- React Hook Form + zod
+- Jest
+- I18n (интернационализация)
+- Socket.IO
+- FSD (Feature-Sliced Design)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+## ⚙️ Серверная часть
+
+- Node.js
+- JWT authentication
+- Mocked data (имитация базы данных)
+
+---
+
+## 🔐 Функционал авторизации
+
+- Авторизация и аутентификация по JWT
+- Защищённые роуты (доступ только для авторизованных пользователей)
+
+---
+
+## 📄 Основные страницы
+
+1. **Orders**
+2. **Products**
+
+---
+
+## 📦 Orders
+
+- Получение списка всех заказов
+- Создание нового заказа
+- Удаление заказа
+- Добавление товара в заказ
+- Удаление товара из заказа
+
+---
+
+## 🛒 Products
+
+- Получение списка всех товаров
+- Удаление товара
+- Фильтрация списка товаров
+
+---
+
+## 🧭 Дополнительный функционал
+
+- **Header**:
+  - Счётчик активных сессий
+  - Блок с текущей датой и временем
+- **Sidebar**:
+  - Навигационное меню
+  - Переключатель языка сайта
+
+---
+
+## 🚀 Запуск проекта
+
+### 1. Клонирование репозитория
+
+```bash
+git clone https://github.com/smththeree/dzenCode-test.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Установка зависимостей
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+```bash
+npm install (--legacy-peer-deps если будет ошибка)
 
-export default tseslint.config([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+```
+
+### 3. Запуск серверной части
+
+```bash
+npm run dev:server
+```
+
+### 4. Запуск клиентской части
+
+```bash
+npm run dev
 ```

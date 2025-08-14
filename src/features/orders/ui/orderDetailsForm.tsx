@@ -18,7 +18,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter Title")}
           {...register("title")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.title?.message}
         </Form.Text>
       </Form.Group>
@@ -30,7 +30,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter Specification")}
           {...register("specification")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.specification?.message}
         </Form.Text>
       </Form.Group>
@@ -41,7 +41,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter Serial Number")}
           {...register("serialNumber")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.serialNumber?.message}
         </Form.Text>
       </Form.Group>
@@ -53,7 +53,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           <option value="1">{t("New")}</option>
           <option value="0">{t("Used")}</option>
         </Form.Select>
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.isNew?.message}
         </Form.Text>
       </Form.Group>
@@ -64,7 +64,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter Type")}
           {...register("type")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.type?.message}
         </Form.Text>
       </Form.Group>
@@ -82,7 +82,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
             />
           )}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.guarantee?.start?.message}
         </Form.Text>
       </Form.Group>
@@ -100,7 +100,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
             />
           )}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.guarantee?.end?.message}
         </Form.Text>
       </Form.Group>
@@ -111,7 +111,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           placeholder={t("Enter Price")}
           {...register("price.value")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.price?.message}
         </Form.Text>
       </Form.Group>
@@ -126,7 +126,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           <option value="UAH">UAH</option>
           <option value="USD">USD</option>
         </Form.Select>
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.price?.symbol?.message}
         </Form.Text>
       </Form.Group>
@@ -137,7 +137,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           label={t("Is it default currency?")}
           {...register("price.isDefault")}
         />
-        <Form.Text className="auth__form-error">
+        <Form.Text className="order__form-error">
           {errors.price?.symbol?.message}
         </Form.Text>
       </Form.Group>
