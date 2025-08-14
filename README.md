@@ -94,3 +94,13 @@ npm install (--legacy-peer-deps если будет ошибка)
 ```bash
  docker compose up
 ```
+
+### Данные для логина
+
+```bash
+ username: admin
+```
+
+```bash
+ password: admin
+```
