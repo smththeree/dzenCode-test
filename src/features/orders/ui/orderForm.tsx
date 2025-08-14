@@ -1,16 +1,18 @@
 import { Button, Form } from "react-bootstrap";
 import { useOrderFormState } from "../model/useOrderFormState";
+import { useTranslation } from "react-i18next";
 
 const OrderForm = ({ handleClose }: { handleClose: () => void }) => {
+  const { t } = useTranslation("");
   const { register, handleSubmit, errors, onSubmit } =
     useOrderFormState(handleClose);
   return (
     <Form className="order__form" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Title</Form.Label>
+        <Form.Label>{t("Title")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter Title"
+          placeholder={t("Enter title")}
           {...register("title")}
         />
         <Form.Text className="auth__form-error">
@@ -19,10 +21,10 @@ const OrderForm = ({ handleClose }: { handleClose: () => void }) => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Desctiption</Form.Label>
+        <Form.Label>{t("Description")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter Description"
+          placeholder={t("Enter description")}
           {...register("description")}
         />
         <Form.Text className="auth__form-error">
@@ -31,7 +33,7 @@ const OrderForm = ({ handleClose }: { handleClose: () => void }) => {
       </Form.Group>
 
       <Button variant="success" type="submit">
-        Create order
+        {t("Create order")}
       </Button>
     </Form>
   );

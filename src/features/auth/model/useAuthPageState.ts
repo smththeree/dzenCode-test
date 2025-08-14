@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "@/app/store";
 import { setToken } from "./auth.slice";
+import { useTranslation } from "react-i18next";
 export const useAuthPageState = () => {
   const {
     register,
@@ -15,6 +16,7 @@ export const useAuthPageState = () => {
     mode: "onChange",
     resolver: zodResolver(AuthSchema),
   });
+  const { t } = useTranslation("");
   const [login] = useLoginMutation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -25,7 +27,7 @@ export const useAuthPageState = () => {
         password: data.password,
       }).unwrap();
       dispatch(setToken(res.accessToken));
-      toast.success("Login successful");
+      toast.success(t("Login successful"));
       navigate("/dashboard/orders");
     } catch (err) {
       console.error("Failed to login:", err);

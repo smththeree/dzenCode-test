@@ -3,18 +3,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDetailsFormState } from "../model/useDetailsFormState";
 import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
   const { register, control, handleSubmit, errors, onSubmit } =
     useDetailsFormState(handleClose);
-  console.log(errors);
+  const { t } = useTranslation("");
   return (
     <Form className="order__form" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="mb-3" controlId="formTitle">
-        <Form.Label>Title</Form.Label>
+        <Form.Label>{t("Title")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter Title"
+          placeholder={t("Enter Title")}
           {...register("title")}
         />
         <Form.Text className="auth__form-error">
@@ -23,10 +24,10 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formSpecification">
-        <Form.Label>Specification</Form.Label>
+        <Form.Label>{t("Specification")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter Specification"
+          placeholder={t("Enter Specification")}
           {...register("specification")}
         />
         <Form.Text className="auth__form-error">
@@ -34,10 +35,10 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formSerialNumber">
-        <Form.Label>Serial Number</Form.Label>
+        <Form.Label>{t("Serial Number")}</Form.Label>
         <Form.Control
           type="number"
-          placeholder="Enter Serial Number"
+          placeholder={t("Enter Serial Number")}
           {...register("serialNumber")}
         />
         <Form.Text className="auth__form-error">
@@ -45,22 +46,22 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formStatus">
-        <Form.Label>Status</Form.Label>
+        <Form.Label>{t("Status")}</Form.Label>
 
         <Form.Select aria-label="Default select example" {...register("isNew")}>
-          <option>Choose the status</option>
-          <option value="1">New</option>
-          <option value="0">Used</option>
+          <option>{t("Choose the Status")}</option>
+          <option value="1">{t("New")}</option>
+          <option value="0">{t("Used")}</option>
         </Form.Select>
         <Form.Text className="auth__form-error">
           {errors.isNew?.message}
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formType">
-        <Form.Label>Type</Form.Label>
+        <Form.Label>{t("Type")}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="Enter the type"
+          placeholder={t("Enter Type")}
           {...register("type")}
         />
         <Form.Text className="auth__form-error">
@@ -68,7 +69,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3 form__date" controlId="formGuaranteeStart">
-        <Form.Label>Guarantee from</Form.Label>
+        <Form.Label>{t("Guarantee from")}</Form.Label>
         <Controller
           control={control}
           name="guarantee.start"
@@ -86,7 +87,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3 form__date" controlId="formGuaranteeEnd">
-        <Form.Label>Guarantee to</Form.Label>
+        <Form.Label>{t("Guarantee to")}</Form.Label>
         <Controller
           control={control}
           name="guarantee.end"
@@ -104,10 +105,10 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formPrice">
-        <Form.Label>Price</Form.Label>
+        <Form.Label>{t("Price")}</Form.Label>
         <Form.Control
           type="number"
-          placeholder="Enter Price"
+          placeholder={t("Enter Price")}
           {...register("price.value")}
         />
         <Form.Text className="auth__form-error">
@@ -115,13 +116,13 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         </Form.Text>
       </Form.Group>
       <Form.Group className="mb-3" controlId="formCurrency">
-        <Form.Label>Currency</Form.Label>
+        <Form.Label>{t("Currency")}</Form.Label>
 
         <Form.Select
           aria-label="Default select example"
           {...register("price.symbol")}
         >
-          <option>Choose the currency</option>
+          <option>{t("Choose the currency")}</option>
           <option value="UAH">UAH</option>
           <option value="USD">USD</option>
         </Form.Select>
@@ -133,7 +134,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
         <Form.Check
           type="checkbox"
           id="formIsDefault"
-          label={`is it default currency`}
+          label={t("Is it default currency?")}
           {...register("price.isDefault")}
         />
         <Form.Text className="auth__form-error">
@@ -142,7 +143,7 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
       </Form.Group>
 
       <Button variant="success" type="submit">
-        Create order
+        {t("Create order")}
       </Button>
     </Form>
   );

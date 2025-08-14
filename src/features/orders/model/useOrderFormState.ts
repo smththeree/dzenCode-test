@@ -3,6 +3,7 @@ import { OrderSchema, type OrderSchemaType } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateOrderMutation } from "../api";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next";
 
 export const useOrderFormState = (handleClose: () => void) => {
   const {
@@ -13,11 +14,12 @@ export const useOrderFormState = (handleClose: () => void) => {
     mode: "onChange",
     resolver: zodResolver(OrderSchema),
   });
+  const { t } = useTranslation("");
   const [createOrder] = useCreateOrderMutation();
   const onSubmit = async (data: OrderSchemaType) => {
     try {
       await createOrder(data).unwrap();
-      toast.success("Order created");
+      toast.success(t("Order created"));
       handleClose();
     } catch (e) {
       console.error("Failed to create order", e);

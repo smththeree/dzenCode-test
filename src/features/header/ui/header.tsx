@@ -5,7 +5,6 @@ import { Button } from "react-bootstrap";
 import { SessionCount } from "@/features/session";
 import HeaderDate from "./headerDate";
 export const Header = ({ handleShow }: { handleShow: () => void }) => {
-  console.log("render");
   return (
     <header className="header">
       <div className="header__logo">
