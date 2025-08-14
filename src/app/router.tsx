@@ -1,22 +1,9 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router";
-
 import { ROUTES } from "@/shared/constants";
-
 import RequireUnauth from "./requireUnAuth";
 import { Toaster } from "sonner";
-import { Layout } from "@/features/layout";
+import { Suspense } from "react";
 
-import { lazy, Suspense } from "react";
-
-const AuthPage = lazy(() =>
-  import("@/features/auth").then((m) => ({ default: m.AuthPage }))
-);
-const OrdersPage = lazy(() =>
-  import("@/features/orders").then((m) => ({ default: m.OrdersPage }))
-);
-const ProductsPage = lazy(() =>
-  import("@/features/products").then((m) => ({ default: m.ProductsPage }))
-);
 export const router = createBrowserRouter([
   {
     element: (
@@ -33,25 +20,37 @@ export const router = createBrowserRouter([
         element: <Navigate to={ROUTES.ORDERS} replace />,
       },
       {
-        element: <Layout />,
+        lazy: () =>
+          import("@/features/layout/ui/layout").then((m) => ({
+            Component: m.Layout,
+          })),
         children: [
           {
             path: ROUTES.ORDERS,
-            element: <OrdersPage />,
+            lazy: () =>
+              import("@/features/orders/ui/orders.page").then((m) => ({
+                Component: m.OrdersPage,
+              })),
           },
           {
             path: ROUTES.PRODUCTS,
-            element: <ProductsPage />,
+            lazy: () =>
+              import("@/features/products/ui/products.page").then((m) => ({
+                Component: m.ProductsPage,
+              })),
           },
         ],
       },
       {
         path: ROUTES.LOGIN,
-        element: (
-          <RequireUnauth>
-            <AuthPage />
-          </RequireUnauth>
-        ),
+        lazy: () =>
+          import("@/features/auth/ui/auth.page").then((m) => ({
+            Component: (props) => (
+              <RequireUnauth>
+                <m.AuthPage {...props} />
+              </RequireUnauth>
+            ),
+          })),
       },
     ],
   },
