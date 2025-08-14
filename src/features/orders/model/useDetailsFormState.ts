@@ -20,7 +20,6 @@ export const useDetailsFormState = (handleClose: () => void) => {
   const activeOrderId = useAppSelector((state) => state.order.orderData);
   const orderId = Number(activeOrderId?.id) || 0;
   const onSubmit = async (data: ProductSchemaType) => {
-    console.log(data);
     try {
       await addProduct({
         ...data,
@@ -34,8 +33,8 @@ export const useDetailsFormState = (handleClose: () => void) => {
         },
         price: [
           {
-            isDefault: 0,
-            symbol: "UAH",
+            isDefault: data.price.isDefault ? 1 : 0,
+            symbol: data.price.symbol,
             value: +data.price.value,
           },
         ],

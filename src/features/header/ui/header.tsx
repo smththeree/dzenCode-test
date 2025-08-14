@@ -16,7 +16,7 @@ export const Header = ({ handleShow }: { handleShow: () => void }) => {
       <HeaderDate />
       <Button
         variant="primary"
-        className="d-md-none header__asideBtn"
+        className="d-lg-none header__asideBtn"
         onClick={handleShow}
       >
         <img src={aside} alt="aside btn" className="header__asideBtn-img" />

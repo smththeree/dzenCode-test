@@ -2,7 +2,7 @@ import type { Order } from "@/shared/types";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRemoveOrderMutation } from "../api";
-import { getTotalPrice } from "@/shared/utils";
+import { GetTotalPrice } from "@/shared/utils";
 import { useAppDispatch } from "@/app/store";
 import { setOrderData } from "./order.slice";
 
@@ -11,8 +11,8 @@ export const useOrderItemState = (order: Order) => {
   const [removeOrder] = useRemoveOrderMutation();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const totals = GetTotalPrice(order.products);
 
-  const totalPrice = getTotalPrice(order);
   const dispatch = useAppDispatch();
 
   const handleRemove = async () => {
@@ -25,5 +25,5 @@ export const useOrderItemState = (order: Order) => {
     }
   };
 
-  return { totalPrice, show, handleClose, handleShow, handleRemove };
+  return { totals, show, handleClose, handleShow, handleRemove };
 };

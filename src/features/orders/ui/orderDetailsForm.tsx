@@ -114,6 +114,33 @@ const OrderDetailsForm = ({ handleClose }: { handleClose: () => void }) => {
           {errors.price?.message}
         </Form.Text>
       </Form.Group>
+      <Form.Group className="mb-3" controlId="formCurrency">
+        <Form.Label>Currency</Form.Label>
+
+        <Form.Select
+          aria-label="Default select example"
+          {...register("price.symbol")}
+        >
+          <option>Choose the currency</option>
+          <option value="UAH">UAH</option>
+          <option value="USD">USD</option>
+        </Form.Select>
+        <Form.Text className="auth__form-error">
+          {errors.price?.symbol?.message}
+        </Form.Text>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formIsDefault">
+        <Form.Check
+          type="checkbox"
+          id="formIsDefault"
+          label={`is it default currency`}
+          {...register("price.isDefault")}
+        />
+        <Form.Text className="auth__form-error">
+          {errors.price?.symbol?.message}
+        </Form.Text>
+      </Form.Group>
+
       <Button variant="success" type="submit">
         Create order
       </Button>

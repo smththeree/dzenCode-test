@@ -23,6 +23,8 @@ export const ProductSchema = z.object({
     .min(3, "Specification is required and must be at least 3 characters"),
   price: z.object({
     value: z.string(),
+    symbol: z.string(),
+    isDefault: z.boolean(),
   }),
   guarantee: z.object({
     start: z.date(),

@@ -1,19 +1,26 @@
-import type { Order, Product } from "../types";
+import { useMemo } from "react";
+import type { Product, ProductPrice } from "../types";
 
-const priceSymbol = "UAH";
+export const GetTotalPrice = (products: Product[]) => {
+  const totals = useMemo(() => {
+    const result: Record<string, { value: number; hasDefault: boolean }> = {};
 
-const isOrder = (item: Product | Order): item is Order => {
-  return "products" in item;
-};
+    products.forEach((product) => {
+      product.price.forEach((p: ProductPrice) => {
+        if (!result[p.symbol]) {
+          result[p.symbol] = { value: 0, hasDefault: false };
+        }
 
-export const getTotalPrice = (items: Product | Order) => {
-  const prices = isOrder(items)
-    ? items.products.flatMap((product) => product.price)
-    : items.price;
+        result[p.symbol].value += p.value;
 
-  const total = prices.reduce((sum, price) => {
-    return price.symbol === priceSymbol ? sum + price.value : sum;
-  }, 0);
+        if (p.isDefault) {
+          result[p.symbol].hasDefault = true;
+        }
+      });
+    });
 
-  return total.toFixed(2);
+    return Object.entries(result);
+  }, [products]);
+
+  return totals;
 };

@@ -1,7 +1,7 @@
 import type { Product } from "@/shared/types";
 import remove from "@/shared/assets/remove.svg";
 import { useFormattedDateTime } from "@/shared/hooks";
-import { cn, getTotalPrice } from "@/shared/utils";
+import { cn } from "@/shared/utils";
 import { Button } from "react-bootstrap";
 import { useProductItemState } from "../model/useProductItemState";
 import Modal from "@/shared/ui/Modal";
@@ -21,7 +21,6 @@ export const ProductItem = ({ product, inOrder }: Props) => {
   );
   const { show, handleClose, handleRemove, handleShow } =
     useProductItemState(product);
-  const totalPrice = getTotalPrice(product);
 
   return (
     <li className={cn("products__list-item", { "in-order": inOrder })}>
@@ -52,9 +51,21 @@ export const ProductItem = ({ product, inOrder }: Props) => {
         <span className="products__order-id">{product.order}</span>
         <span className="products__order-title">Order ID</span>
       </div>
+
       <div className="products__item-price">
-        <span className="products__price-value">{totalPrice}</span>
-        <span className="products__price-currency">UAH</span>
+        {product.price.map((price, index) => (
+          <span
+            key={index}
+            className={cn("product__price", {
+              default: Boolean(price.isDefault),
+            })}
+          >
+            <span className="products__price-value">
+              {price.value.toFixed(2)}
+            </span>
+            <span className="products__price-currency">{price.symbol}</span>
+          </span>
+        ))}
       </div>
       <div className="products__item-date">
         <span className="products__date-time">{time}</span>
@@ -83,19 +94,13 @@ export const ProductItem = ({ product, inOrder }: Props) => {
           </Button>
         }
       >
-        <ModalProductItem product={product} totalPrice={totalPrice} />
+        <ModalProductItem product={product} />
       </Modal>
     </li>
   );
 };
 
-export const ModalProductItem = ({
-  product,
-  totalPrice,
-}: {
-  product: Product;
-  totalPrice: string;
-}) => {
+export const ModalProductItem = ({ product }: { product: Product }) => {
   return (
     <div className="modal__product">
       <div className="modal__product-info">
@@ -114,8 +119,17 @@ export const ModalProductItem = ({
       </div>
 
       <div className="modal__product-price">
-        <span className="modal__price-value">{totalPrice}</span>
-        <span className="modal__price-currency">UAH</span>
+        {product.price.map((price, index) => (
+          <span
+            key={index}
+            className={cn("modal__price", {
+              default: Boolean(price.isDefault),
+            })}
+          >
+            <span className="modal__price-value">{price.value.toFixed(2)}</span>
+            <span className="modal__price-currency">{price.symbol}</span>
+          </span>
+        ))}
       </div>
     </div>
   );

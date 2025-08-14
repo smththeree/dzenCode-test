@@ -135,10 +135,37 @@
                 flex-direction: column;
                 align-items: center;
 
-                .orders__price-value {
-                    font-weight: bold;
-                    font-size: 18px;
+
+
+                .orders__price {
+                    display: flex;
+                    gap: 5px;
+                    align-items: center;
+
+                    &.default {
+                        .orders__price-value {
+                            font-weight: bold;
+                            font-size: 18px;
+                        }
+
+                        .orders__price-currency {
+                            font-size: 14px;
+                            font-weight: bold;
+                        }
+                    }
+
+                    .orders__price-value {
+                        font-weight: 400;
+                        font-size: 14px;
+                    }
+
+                    .orders__price-currency {
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
                 }
+
+
             }
 
             .orders__remove-icon {
@@ -197,13 +224,33 @@
         flex-direction: column;
         align-items: center;
 
-        .modal__price-value {
-            font-weight: bold;
-            font-size: 18px;
-        }
+        .modal__price {
+            display: flex;
+            gap: 5px;
+            align-items: center;
 
-        .modal__price-currency {
-            font-size: 14px;
+            &.default {
+                .modal__price-value {
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+
+                .modal__price-currency {
+                    font-size: 16px;
+                    font-weight: bold;
+                }
+            }
+
+            .modal__price-value {
+                font-weight: 400;
+                font-size: 14px;
+            }
+
+            .modal__price-currency {
+                font-size: 14px;
+                font-weight: 400;
+            }
+
         }
     }
 }

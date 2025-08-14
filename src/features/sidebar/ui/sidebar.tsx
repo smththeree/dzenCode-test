@@ -12,7 +12,7 @@ type Props = {
 export const SideBar = ({ show, handleClose }: Props) => {
   const { activeId, handleClick } = useSideBarState(handleClose);
   return (
-    <Offcanvas show={show} onHide={handleClose} responsive="md">
+    <Offcanvas show={show} onHide={handleClose} responsive="lg">
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Navigation</Offcanvas.Title>
       </Offcanvas.Header>

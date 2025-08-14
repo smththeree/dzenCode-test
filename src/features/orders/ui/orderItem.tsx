@@ -15,7 +15,7 @@ const OrderItem = ({
   handleClick: (order: Order) => void;
 }) => {
   const { date, time } = useFormattedDateTime(new Date(order.date));
-  const { totalPrice, show, handleClose, handleShow, handleRemove } =
+  const { totals, show, handleClose, handleShow, handleRemove } =
     useOrderItemState(order);
   const activeOrderDetails = useAppSelector((state) => state.order.orderData);
 
@@ -42,8 +42,15 @@ const OrderItem = ({
           <span className="orders__date-day">{date}</span>
         </div>
         <div className="orders__item-price">
-          <span className="orders__price-value">{totalPrice}</span>
-          <span className="orders__price-currency">UAH</span>
+          {totals.map(([symbol, { value, hasDefault }]) => (
+            <span
+              key={symbol}
+              className={cn("orders__price", { default: hasDefault })}
+            >
+              <span className="orders__price-value">{value.toFixed(2)}</span>
+              <span className="orders__price-currency">{symbol}</span>
+            </span>
+          ))}
         </div>
 
         <img
@@ -70,7 +77,7 @@ const OrderItem = ({
             </Button>
           }
         >
-          <ModalOrderItem order={order} totalPrice={totalPrice} />
+          <ModalOrderItem order={order} totals={totals} />
         </Modal>
       </li>
     </>
@@ -81,10 +88,16 @@ export default OrderItem;
 
 export const ModalOrderItem = ({
   order,
-  totalPrice,
+  totals,
 }: {
   order: Order;
-  totalPrice: string;
+  totals: [
+    string,
+    {
+      value: number;
+      hasDefault: boolean;
+    }
+  ][];
 }) => {
   return (
     <div className="modal__order">
@@ -94,8 +107,15 @@ export const ModalOrderItem = ({
       </div>
 
       <div className="modal__order-price">
-        <span className="modal__price-value">{totalPrice}</span>
-        <span className="modal__price-currency">UAH</span>
+        {totals.map(([symbol, { value, hasDefault }]) => (
+          <span
+            key={symbol}
+            className={cn("modal__price", { default: hasDefault })}
+          >
+            <span className="modal__price-value">{value}</span>
+            <span className="modal__price-currency">{symbol}</span>
+          </span>
+        ))}
       </div>
     </div>
   );
