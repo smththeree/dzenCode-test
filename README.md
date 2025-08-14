@@ -95,6 +95,8 @@ npm install (--legacy-peer-deps если будет ошибка)
  docker compose up
 ```
 
+### 4. http://localhost:5173/
+
 ### Данные для логина
 
 ```bash
