@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  app:
+    image: node:20-alpine
+    container_name: dzenCode
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4444:4444"
+      - "5173:5173"
+    environment:
+      NODE_ENV: development
+    command: sh -c "npm install --legacy-peer-deps && npm run dev:server & npm run dev -- --host 0.0.0.0 & wait"
