@@ -3,6 +3,21 @@
     flex-direction: column;
     gap: 20px;
 
+    &__filter {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        &-label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .form-select {
+            max-width: 250px;
+        }
+    }
+
     &__list {
         display: flex;
         flex-direction: column;
