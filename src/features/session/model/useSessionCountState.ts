@@ -8,9 +8,8 @@ export const useSessionCountState = () => {
     const socket = io("http://localhost:4444", {
       withCredentials: true,
     });
-    const handleActiveSessions = (value: number) => {
+    const handleActiveSessions = (value: number): void => {
       setCount(value);
-      console.log("Active sessions:", value);
     };
     socket.on("activeSessions", handleActiveSessions);
     return () => {
