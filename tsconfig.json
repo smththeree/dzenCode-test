@@ -5,6 +5,10 @@
     { "path": "./tsconfig.node.json" }
   ],
    "compilerOptions": {
+     "jsx": "react-jsx", 
+    "types": ["jest", "@testing-library/jest-dom"],
+    "target": "es2017",
+    "lib": ["dom", "es2017"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
