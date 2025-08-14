@@ -1,19 +1,30 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router";
 
 import { ROUTES } from "@/shared/constants";
-import { AuthPage } from "@/features/auth";
+
 import RequireUnauth from "./requireUnAuth";
 import { Toaster } from "sonner";
 import { Layout } from "@/features/layout";
-import { OrdersPage } from "@/features/orders";
-import { ProductsPage } from "@/features/products";
 
+import { lazy, Suspense } from "react";
+
+const AuthPage = lazy(() =>
+  import("@/features/auth").then((m) => ({ default: m.AuthPage }))
+);
+const OrdersPage = lazy(() =>
+  import("@/features/orders").then((m) => ({ default: m.OrdersPage }))
+);
+const ProductsPage = lazy(() =>
+  import("@/features/products").then((m) => ({ default: m.ProductsPage }))
+);
 export const router = createBrowserRouter([
   {
     element: (
       <>
         <Toaster position="bottom-right" />
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </>
     ),
     children: [
