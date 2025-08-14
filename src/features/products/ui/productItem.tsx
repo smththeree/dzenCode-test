@@ -5,6 +5,7 @@ import { cn, getTotalPrice } from "@/shared/utils";
 import { Button } from "react-bootstrap";
 import { useProductItemState } from "../model/useProductItemState";
 import Modal from "@/shared/ui/Modal";
+import "./products.scss";
 type Props = {
   product: Product;
   inOrder: boolean;
