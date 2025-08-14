@@ -89,14 +89,8 @@ npm install (--legacy-peer-deps если будет ошибка)
 
 ```
 
-### 3. Запуск серверной части
+### 3. Запуск прижения (Docker)
 
 ```bash
-npm run dev:server
-```
-
-### 4. Запуск клиентской части
-
-```bash
-npm run dev
+ docker compose up
 ```
