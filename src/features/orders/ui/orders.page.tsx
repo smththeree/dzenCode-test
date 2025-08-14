@@ -4,6 +4,7 @@ import "./ordersPage.scss";
 import Modal from "@/shared/ui/Modal";
 import OrderForm from "./orderForm";
 import OrderList from "./orderList";
+import { useTranslation } from "react-i18next";
 export const OrdersPage = () => {
   const {
     orders,
@@ -14,13 +15,13 @@ export const OrdersPage = () => {
     showDetails,
     handleShowDetails,
   } = useOrdersPageState();
-
+  const { t } = useTranslation("");
   return (
     <section className="orders">
       <div className="orders__header">
-        <h1 className="orders__header-title">Orders</h1>
+        <h1 className="orders__header-title">{t("Orders")}</h1>
         <Button variant="success" onClick={handleShow}>
-          Add order
+          {t("Add order")}
         </Button>
       </div>
       <OrderList
@@ -29,7 +30,7 @@ export const OrdersPage = () => {
         showDetails={showDetails}
         handleShowDetails={handleShowDetails}
       />
-      <Modal heading="Add order" show={show} handleClose={handleClose}>
+      <Modal heading={t("Add order")} show={show} handleClose={handleClose}>
         <OrderForm handleClose={handleClose} />
       </Modal>
     </section>

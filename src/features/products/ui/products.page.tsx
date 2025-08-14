@@ -3,19 +3,22 @@ import { useProductsPageState } from "../model/useProductsPageState";
 import "./products.scss";
 import { ProductItem } from "./productItem";
 import ProductsFilter from "./productsFilter";
+import { useTranslation } from "react-i18next";
 
 export const ProductsPage = () => {
   const { isFetching, filteredProducts, handleStatusChange } =
     useProductsPageState();
 
+  const { t } = useTranslation("");
+
   return (
     <section className="products">
-      <h1 className="products__title">Products</h1>
+      <h1 className="products__title">{t("Products")}</h1>
 
       <ProductsFilter handleStatusChange={handleStatusChange} />
 
       <ul className="products__list">
-        {filteredProducts?.length === 0 && !isFetching && "No Products"}
+        {filteredProducts?.length === 0 && !isFetching && t("No products")}
         {isFetching ? (
           <div className="orders__list-spinner">
             <Spinner />

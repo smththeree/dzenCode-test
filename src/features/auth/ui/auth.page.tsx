@@ -1,18 +1,20 @@
 import { Button, Form } from "react-bootstrap";
 import { useAuthPageState } from "../model/useAuthPageState";
 import "./auth.page.scss";
+import { useTranslation } from "react-i18next";
 
 export const AuthPage = () => {
   const { register, handleSubmit, errors, onSubmit } = useAuthPageState();
+  const { t } = useTranslation("");
 
   return (
     <div className="auth__page">
       <Form className="auth__form" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Username</Form.Label>
+          <Form.Label>{t("Username")}</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter username"
+            placeholder={t("Enter username")}
             {...register("username")}
           />
           <Form.Text className="auth__form-error">
@@ -21,10 +23,10 @@ export const AuthPage = () => {
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{t("Password")}</Form.Label>
           <Form.Control
             type="password"
-            placeholder="Password"
+            placeholder={t("Enter password")}
             {...register("password")}
           />
           <Form.Text className="auth__form-error">
@@ -33,7 +35,7 @@ export const AuthPage = () => {
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          Login
+          {t("Login")}
         </Button>
       </Form>
     </div>

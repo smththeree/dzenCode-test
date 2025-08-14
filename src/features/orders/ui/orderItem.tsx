@@ -6,6 +6,7 @@ import Modal from "@/shared/ui/Modal";
 import { Button } from "react-bootstrap";
 import { cn } from "@/shared/utils";
 import { useAppSelector } from "@/app/store";
+import { useTranslation } from "react-i18next";
 
 const OrderItem = ({
   order,
@@ -18,6 +19,7 @@ const OrderItem = ({
   const { totals, show, handleClose, handleShow, handleRemove } =
     useOrderItemState(order);
   const activeOrderDetails = useAppSelector((state) => state.order.orderData);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -35,7 +37,7 @@ const OrderItem = ({
           <span className="orders__products-count">
             {order.products.length}
           </span>
-          <span>Products</span>
+          <span>{t("Products")}</span>
         </div>
         <div className="orders__item-date">
           <span className="orders__date-time">{time}</span>
@@ -63,17 +65,17 @@ const OrderItem = ({
           }}
         />
         <Modal
-          heading="Are you sure you want to delete this order?"
+          heading={t("Are you sure you want to delete this order?")}
           show={show}
           handleClose={handleClose}
           closeButton={
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              {t("Close")}
             </Button>
           }
           saveButton={
             <Button variant="danger" onClick={handleRemove}>
-              Delete
+              {t("Delete")}
             </Button>
           }
         >

@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import { useProductItemState } from "../model/useProductItemState";
 import Modal from "@/shared/ui/Modal";
 import "./products.scss";
+import { useTranslation } from "react-i18next";
 type Props = {
   product: Product;
   inOrder: boolean;
@@ -21,6 +22,7 @@ export const ProductItem = ({ product, inOrder }: Props) => {
   );
   const { show, handleClose, handleRemove, handleShow } =
     useProductItemState(product);
+  const { t } = useTranslation();
 
   return (
     <li className={cn("products__list-item", { "in-order": inOrder })}>
@@ -80,17 +82,17 @@ export const ProductItem = ({ product, inOrder }: Props) => {
       />
 
       <Modal
-        heading="Are you sure you want to delete this product?"
+        heading={t("Are you sure you want to delete this product?")}
         show={show}
         handleClose={handleClose}
         closeButton={
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("Close")}
           </Button>
         }
         saveButton={
           <Button variant="danger" onClick={handleRemove}>
-            Delete
+            {t("Delete")}
           </Button>
         }
       >

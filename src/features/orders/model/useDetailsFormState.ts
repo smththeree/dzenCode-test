@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { productsApi } from "@/features/products";
 import { useAppSelector } from "@/app/store";
+import { useTranslation } from "react-i18next";
 
 export const useDetailsFormState = (handleClose: () => void) => {
   const {
@@ -16,6 +17,7 @@ export const useDetailsFormState = (handleClose: () => void) => {
     mode: "onChange",
     resolver: zodResolver(ProductSchema),
   });
+  const { t } = useTranslation("");
   const [addProduct] = productsApi.useCreateProductMutation();
   const activeOrderId = useAppSelector((state) => state.order.orderData);
   const orderId = Number(activeOrderId?.id) || 0;
@@ -39,7 +41,7 @@ export const useDetailsFormState = (handleClose: () => void) => {
           },
         ],
       }).unwrap();
-      toast.success("Product created");
+      toast.success(t("Product created"));
       handleClose();
     } catch (e) {
       console.error("Failed to create product", e);

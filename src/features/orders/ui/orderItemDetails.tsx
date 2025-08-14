@@ -3,6 +3,7 @@ import { useOrderItemDetails } from "../model/useOrderItemDetails";
 import OrderItemDetailsList from "./orderItemDetailsList";
 import Modal from "@/shared/ui/Modal";
 import OrderDetailsForm from "./orderDetailsForm";
+import { useTranslation } from "react-i18next";
 
 const OrderItemDetails = () => {
   const {
@@ -13,6 +14,7 @@ const OrderItemDetails = () => {
     handleClose,
     handleShow,
   } = useOrderItemDetails();
+  const { t } = useTranslation("");
 
   if (!activeOrderDetails) return null;
   return (
@@ -28,12 +30,16 @@ const OrderItemDetails = () => {
         </div>
         <div className="orders__heading-actions">
           <Button variant="success" onClick={handleShow}>
-            Add product
+            {t("Add product")}
           </Button>
         </div>
       </div>
       <OrderItemDetailsList products={products} isFetching={isFetching} />
-      <Modal heading="Add new product" show={show} handleClose={handleClose}>
+      <Modal
+        heading={t("Add new product")}
+        show={show}
+        handleClose={handleClose}
+      >
         <OrderDetailsForm handleClose={handleClose} />
       </Modal>
     </div>

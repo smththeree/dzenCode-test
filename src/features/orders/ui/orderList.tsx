@@ -2,6 +2,7 @@ import type { Order } from "@/shared/types";
 import { Spinner } from "react-bootstrap";
 import OrderItem from "./orderItem";
 import OrderItemDetails from "./orderItemDetails";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   orders: Order[] | undefined;
@@ -16,10 +17,11 @@ const OrderList = ({
   showDetails,
   handleShowDetails,
 }: Props) => {
+  const { t } = useTranslation("");
   return (
     <div className="orders__list-container">
       <ul className="orders__list">
-        {orders?.length === 0 && !isFetching && "No orders"}
+        {orders?.length === 0 && !isFetching && t("No orders")}
         {isFetching ? (
           <div className="orders__list-spinner">
             <Spinner />

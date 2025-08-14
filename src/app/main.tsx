@@ -5,6 +5,7 @@ import "./index.scss";
 import { RouterProvider } from "react-router";
 import { router } from "./router.tsx";
 import Providers from "./Providers.tsx";
+import "@/shared/i18n/i18n.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
