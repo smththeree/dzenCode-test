@@ -4,6 +4,7 @@ import logo from "@/shared/assets/logo.svg";
 import alarm from "@/shared/assets/alarm.svg";
 import aside from "@/shared/assets/aside.svg";
 import { Button } from "react-bootstrap";
+import { SessionCount } from "@/features/session";
 export const Header = ({ handleShow }: { handleShow: () => void }) => {
   const { date, time } = useFormattedDateTime(new Date());
   return (
@@ -12,6 +13,7 @@ export const Header = ({ handleShow }: { handleShow: () => void }) => {
         <img src={logo} className="header__logo-img" alt="Inventory" />
         <h3 className="header__logo-title">Inventory</h3>
       </div>
+      <SessionCount />
       <div className="header__date d-none d-sm-block">
         <span className="header__date-day">Today</span>
         <div className="header__date-month">
