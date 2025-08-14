@@ -85,7 +85,7 @@ git clone https://github.com/smththeree/dzenCode-test.git
 ### 2. Установка зависимостей
 
 ```bash
-npm install (--legacy-peer-deps если будет ошибка)
+npm install --legacy-peer-deps
 
 ```
 
